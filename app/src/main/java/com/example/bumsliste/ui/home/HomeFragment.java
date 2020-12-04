@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -31,9 +33,19 @@ import com.example.bumsliste.MainActivity;
 import com.example.bumsliste.R;
 import com.example.bumsliste.databinding.FragmentHomeBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
@@ -65,6 +77,20 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 dispatchTakePictureIntent();
+            }
+        });
+
+        final Button submitButton = binding.submit;
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                try {
+                    writeDataToJson();
+
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return root;
@@ -103,7 +129,6 @@ public class HomeFragment extends Fragment {
             try {
                 if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     //wenn Erlaubnis erteilt
-                    Toast.makeText(getActivity().getApplicationContext(), "thank you", Toast.LENGTH_LONG).show();
 
                     photoFile = createImageFile();
 
@@ -117,7 +142,6 @@ public class HomeFragment extends Fragment {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Toast.makeText(getActivity().getApplicationContext(), photoFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
                 Uri photoURI = FileProvider.getUriForFile(getActivity().getApplicationContext(),
                         "com.example.bumsliste.fileprovider",
                         photoFile);
@@ -141,5 +165,47 @@ public class HomeFragment extends Fragment {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             galleryAddPic();
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void writeDataToJson() throws JSONException, IOException {
+
+        File file = new File(getActivity().getApplicationContext().getFilesDir(),"savedSodas.json");
+
+        StringBuilder text = new StringBuilder();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+            br.close();
+        }
+        catch (IOException e) {
+            //You'll need to add proper error handling here
+        }
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+
+        JSONArray jsonArray = new JSONArray(text.toString());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("sodaName", binding.sodaName.getText());
+        jsonObject.put("calories", binding.calories.getText());
+        jsonObject.put("imageName", currentPhotoName);
+        jsonObject.put("description", binding.sodaDescription.getText());
+        jsonObject.put("dateTime", formatter.format(date));
+        jsonArray.put(jsonObject);
+
+        String userString = jsonArray.toString();
+        FileWriter fileWriter = new FileWriter(file);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.write(userString);
+        bufferedWriter.close();
+
+        Log.d("jsonEndText", text.toString());
     }
 }

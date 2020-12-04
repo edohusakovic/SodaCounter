@@ -23,6 +23,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.bumsliste.R;
 import com.example.bumsliste.databinding.FragmentDashboardBinding;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -45,15 +47,23 @@ public class DashboardFragment extends Fragment {
 
         File directory = new File(path);
         File[] files = directory.listFiles();
-        for (File file : files) {
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(),bmOptions);
+        if (files != null) {
+            for (File file : files) {
+                Log.d("File", file.getName());
+                BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(),bmOptions);
 
-            ImageView imageView = new ImageView(getActivity().getApplicationContext());
-            imageView.setImageBitmap(bitmap);
+                ImageView imageView = new ImageView(getActivity().getApplicationContext());
+                imageView.setImageBitmap(bitmap);
 
-            binding.linearLayout.addView(imageView);
+                TextView textView = new TextView(getActivity().getApplicationContext());
+                textView.setText(file.getName());
+
+                binding.linearLayout.addView(imageView);
+                binding.linearLayout.addView(textView);
+            }
         }
+
 
         return root;
     }
