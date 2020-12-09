@@ -86,10 +86,13 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 try {
+
                     writeDataToJson();
+                    Log.d("success", "after write json");
 
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
+                    Log.d("error", "in catch");
                 }
             }
         });
@@ -101,8 +104,8 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    String currentPhotoPath;
-    String currentPhotoName;
+    String currentPhotoPath = "";
+    String currentPhotoName = "";
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -190,12 +193,17 @@ public class HomeFragment extends Fragment {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
-
-        JSONArray jsonArray = new JSONArray(text.toString());
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(text.toString());
+        }
+        catch (Exception e) {
+            jsonArray = new JSONArray();
+        }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("sodaName", binding.sodaName.getText());
         jsonObject.put("calories", binding.calories.getText());
-        jsonObject.put("imageName", currentPhotoName);
+        jsonObject.put("imageName", currentPhotoPath);
         jsonObject.put("description", binding.sodaDescription.getText());
         jsonObject.put("dateTime", formatter.format(date));
         jsonArray.put(jsonObject);
@@ -205,7 +213,5 @@ public class HomeFragment extends Fragment {
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write(userString);
         bufferedWriter.close();
-
-        Log.d("jsonEndText", text.toString());
     }
 }
