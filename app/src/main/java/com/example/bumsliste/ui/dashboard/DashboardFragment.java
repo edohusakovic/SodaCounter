@@ -121,9 +121,6 @@ public class DashboardFragment extends Fragment {
                 String sodaDate = item.get("dateTime").toString();
                 String sodaImagePath = !Objects.isNull(item.get("imageName")) ? item.get("imageName").toString() : "";
 
-                Log.d("image", sodaImagePath);
-
-                String path = getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
                 if (!sodaImagePath.isEmpty()) {
                     BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                     Bitmap bitmap = BitmapFactory.decodeFile(sodaImagePath, bmOptions);
@@ -131,9 +128,20 @@ public class DashboardFragment extends Fragment {
                     imageView.setImageBitmap(bitmap);
                     binding.linearLayout.addView(imageView);
                 }
+                String fullText = "";
+                fullText = sodaName.isEmpty() ? fullText : "Name:\n" + sodaName;
+                fullText = sodaDescription.isEmpty() ? fullText : fullText  + "\n\nDescription:\n"+ sodaDescription;
+                fullText = sodaCalories.isEmpty() ? fullText : fullText  + "\n\nKalorien:\n" + sodaCalories;
+                fullText = sodaDate.isEmpty() ? fullText : fullText  + "\n\nDatum:\n" + sodaDate;
 
                 TextView textView = new TextView(getActivity().getApplicationContext());
-                textView.setText(sodaName + "\n" + sodaDescription + "\n" + sodaCalories + "\n" + sodaDate);
+                textView.setText(fullText);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(100, 0,0,0);
+                textView.setLayoutParams(params);
 
                 binding.linearLayout.addView(textView);
             } catch (JSONException e) {
