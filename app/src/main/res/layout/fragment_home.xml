@@ -44,33 +44,33 @@
         tools:src="@tools:sample/avatars" />
 
     <EditText
-        android:id="@+id/sodaName"
-        android:layout_width="169dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
         android:id="@+id/calories"
         android:layout_width="208dp"
         android:layout_height="41dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="84dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/sodaName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/sodaName"
+        android:layout_width="169dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="84dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
         android:id="@+id/sodaDescription"
         android:layout_width="200dp"
         android:layout_height="162dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="4dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
@@ -81,7 +81,7 @@
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="404dp"
+        android:layout_marginTop="440dp"
         android:text="Erfassen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,4 +113,14 @@
         android:text="Beschreibung"
         app:layout_constraintBottom_toTopOf="@+id/sodaDescription"
         app:layout_constraintStart_toStartOf="@+id/sodaDescription" />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_settings_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

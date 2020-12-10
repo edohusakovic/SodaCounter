@@ -1,4 +1,4 @@
-package com.example.sodacounter.ui.home;
+package ch.bbw.sodacounter.ui.home;
 
 import android.Manifest;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +26,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sodacounter.databinding.FragmentHomeBinding;
-import com.example.sodacounter.persistence.EntryController;
+import ch.bbw.sodacounter.SettingsActivity;
+import ch.bbw.sodacounter.databinding.FragmentHomeBinding;
+import ch.bbw.sodacounter.persistence.EntryController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,6 +74,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 dispatchTakePictureIntent();
+            }
+        });
+
+        binding.settingsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                Intent intent = new Intent(getActivity().getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -142,7 +152,7 @@ public class HomeFragment extends Fragment {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(getActivity().getApplicationContext(),
-                        "com.example.sodacounter.fileprovider",
+                        "ch.bbw.sodacounter.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, 1);

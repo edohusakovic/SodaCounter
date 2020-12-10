@@ -1,4 +1,4 @@
-package com.example.sodacounter;
+package ch.bbw.sodacounter;
 
 import android.os.Bundle;
 

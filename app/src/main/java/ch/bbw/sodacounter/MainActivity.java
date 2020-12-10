@@ -1,4 +1,4 @@
-package com.example.sodacounter;
+package ch.bbw.sodacounter;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.sodacounter.databinding.ActivityMainBinding;
+import ch.bbw.sodacounter.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 

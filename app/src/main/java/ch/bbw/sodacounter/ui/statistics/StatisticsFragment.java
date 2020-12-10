@@ -1,4 +1,4 @@
-package com.example.sodacounter.ui.statistics;
+package ch.bbw.sodacounter.ui.statistics;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sodacounter.databinding.FragmentStatisticsBinding;
+import ch.bbw.sodacounter.databinding.FragmentStatisticsBinding;
 
 public class StatisticsFragment extends Fragment {
 

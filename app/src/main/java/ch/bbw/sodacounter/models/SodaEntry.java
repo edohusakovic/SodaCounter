@@ -1,4 +1,4 @@
-package com.example.sodacounter.models;
+package ch.bbw.sodacounter.models;
 
 import android.graphics.Bitmap;
 

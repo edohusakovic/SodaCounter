@@ -1,4 +1,4 @@
-package com.example.sodacounter.ui.gallery;
+package ch.bbw.sodacounter.ui.gallery;
 
 import androidx.lifecycle.ViewModel;
 

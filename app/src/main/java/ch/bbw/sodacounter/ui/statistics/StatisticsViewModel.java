@@ -1,4 +1,4 @@
-package com.example.sodacounter.ui.statistics;
+package ch.bbw.sodacounter.ui.statistics;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

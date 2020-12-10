@@ -1,4 +1,4 @@
-package com.example.sodacounter;
+package ch.bbw.sodacounter;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.sodacounter.ui.gallery;
+package ch.bbw.sodacounter.ui.gallery;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,9 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sodacounter.databinding.FragmentGalleryBinding;
-import com.example.sodacounter.models.SodaEntry;
-import com.example.sodacounter.persistence.EntryController;
+import ch.bbw.sodacounter.databinding.FragmentGalleryBinding;
+import ch.bbw.sodacounter.models.SodaEntry;
+import ch.bbw.sodacounter.persistence.EntryController;
 
 import org.json.JSONArray;
 import org.json.JSONException;

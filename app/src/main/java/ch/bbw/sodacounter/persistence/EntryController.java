@@ -1,4 +1,4 @@
-package com.example.sodacounter.persistence;
+package ch.bbw.sodacounter.persistence;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.sodacounter.models.SodaEntry;
+import ch.bbw.sodacounter.models.SodaEntry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +53,7 @@ public class EntryController {
             //You'll need to add proper error handling here
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         Date date = new Date();
         JSONArray jsonArray;
         try {

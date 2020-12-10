@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bums Liste</string>
+    <string name="app_name">Soda Counter</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Gallery</string>
     <string name="title_notifications">Statistics</string>
