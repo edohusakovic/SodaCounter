@@ -1,11 +1,8 @@
-package com.example.bumsliste.ui.home;
+package com.example.sodacounter.ui.home;
 
 import android.Manifest;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +25,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.bumsliste.MainActivity;
-import com.example.bumsliste.R;
-import com.example.bumsliste.databinding.FragmentHomeBinding;
+import com.example.sodacounter.databinding.FragmentHomeBinding;
+import com.example.sodacounter.persistence.EntryController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,8 +39,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
@@ -63,6 +56,8 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        EntryController entryController = new EntryController(getActivity().getApplicationContext());
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -87,7 +82,8 @@ public class HomeFragment extends Fragment {
                 // Code here executes on main thread after user presses button
                 try {
 
-                    writeDataToJson();
+                    //writeDataToJson();
+                    entryController.writeDataToJson(binding.sodaName.getText().toString(), binding.calories.getText().toString(), binding.sodaDescription.getText().toString(), currentPhotoPath);
                     Log.d("success", "after write json");
 
                 } catch (JSONException | IOException e) {
@@ -146,7 +142,7 @@ public class HomeFragment extends Fragment {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(getActivity().getApplicationContext(),
-                        "com.example.bumsliste.fileprovider",
+                        "com.example.sodacounter.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, 1);
@@ -168,50 +164,5 @@ public class HomeFragment extends Fragment {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             galleryAddPic();
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void writeDataToJson() throws JSONException, IOException {
-
-        File file = new File(getActivity().getApplicationContext().getFilesDir(),"savedSodas.json");
-
-        StringBuilder text = new StringBuilder();
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                text.append(line);
-                text.append('\n');
-            }
-            br.close();
-        }
-        catch (IOException e) {
-            //You'll need to add proper error handling here
-        }
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        JSONArray jsonArray;
-        try {
-            jsonArray = new JSONArray(text.toString());
-        }
-        catch (Exception e) {
-            jsonArray = new JSONArray();
-        }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("sodaName", binding.sodaName.getText());
-        jsonObject.put("calories", binding.calories.getText());
-        jsonObject.put("imageName", currentPhotoPath);
-        jsonObject.put("description", binding.sodaDescription.getText());
-        jsonObject.put("dateTime", formatter.format(date));
-        jsonArray.put(jsonObject);
-
-        String userString = jsonArray.toString();
-        FileWriter fileWriter = new FileWriter(file);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.write(userString);
-        bufferedWriter.close();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.bumsliste.ui.notifications;
+package com.example.sodacounter.ui.statistics;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.bumsliste.R;
-import com.example.bumsliste.databinding.FragmentNotificationsBinding;
+import com.example.sodacounter.databinding.FragmentStatisticsBinding;
 
-public class NotificationsFragment extends Fragment {
+public class StatisticsFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
-    private FragmentNotificationsBinding binding;
+    private StatisticsViewModel notificationsViewModel;
+    private FragmentStatisticsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+                new ViewModelProvider(this).get(StatisticsViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentStatisticsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;

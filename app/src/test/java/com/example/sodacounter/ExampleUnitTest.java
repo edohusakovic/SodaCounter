@@ -1,4 +1,4 @@
-package com.example.bumsliste;
+package com.example.sodacounter;
 
 import org.junit.Test;
 

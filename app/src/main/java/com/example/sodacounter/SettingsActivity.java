@@ -1,4 +1,4 @@
-package com.example.bumsliste;
+package com.example.sodacounter;
 
 import android.os.Bundle;
 

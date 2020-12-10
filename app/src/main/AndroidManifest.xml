@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bumsliste">
+    package="com.example.sodacounter">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BumsListe">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.sodacounter.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.bumsliste.fileprovider"
+            android:authorities="com.example.sodacounter.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
