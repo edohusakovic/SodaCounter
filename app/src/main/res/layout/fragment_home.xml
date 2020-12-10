@@ -26,9 +26,9 @@
         android:id="@+id/cameraButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:text="Foti vo d bitch"
+        android:text="Foto hinzufügen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sodaName" />
 
@@ -47,11 +47,10 @@
         android:id="@+id/sodaName"
         android:layout_width="169dp"
         android:layout_height="41dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,12 +58,11 @@
         android:id="@+id/calories"
         android:layout_width="208dp"
         android:layout_height="41dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="number"
-        android:text="Kalorien"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sodaName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -83,9 +81,36 @@
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="176dp"
+        android:layout_marginTop="404dp"
         android:text="Erfassen"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/sodaName"
+        app:layout_constraintStart_toStartOf="@+id/sodaName" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Kalorien"
+        app:layout_constraintBottom_toTopOf="@+id/calories"
+        app:layout_constraintStart_toStartOf="@+id/calories" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Beschreibung"
+        app:layout_constraintBottom_toTopOf="@+id/sodaDescription"
+        app:layout_constraintStart_toStartOf="@+id/sodaDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>
