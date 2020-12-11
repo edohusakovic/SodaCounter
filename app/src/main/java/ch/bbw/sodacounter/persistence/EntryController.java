@@ -24,12 +24,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
@@ -117,28 +120,37 @@ public class EntryController {
     }
 
     public int getTotalConsumption () {
-        JSONArray jsonArray = getAllSodasArray();
+        try {
+            JSONArray jsonArray = getAllSodasArray();
 
-        return jsonArray.length();
+            return jsonArray.length();
+        }
+        catch (Exception e) {
+            return 0;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public int getAveragePerWeek () throws JSONException {
+    public int getAveragePerWeek () throws JSONException, ParseException {
         JSONArray jsonArray = getAllSodasArray();
-        int average = 0;
+
+        ArrayList<Integer> weekArray = new ArrayList<Integer>();
+
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject item = (JSONObject) jsonArray.get(i);
-            String date = item.get("dateTime").toString();
-            LocalDateTime localDateTime = LocalDateTime.parse(date);
+            String stringDate = item.get("dateTime").toString();
+
+            Date date = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").parse(stringDate);
 
             Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(localDateTime.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli());
-            Integer year2 = c.get(c.YEAR);
-            Integer week2 = c.get(c.WEEK_OF_YEAR);
-
+            c.setTimeInMillis(date.getTime());
+            Integer week = c.get(c.WEEK_OF_YEAR);
+            if (!weekArray.contains(week)) {
+                weekArray.add(week);
+            }
         }
 
-        return average;
+        return Math.round((jsonArray.length() / weekArray.size()));
     }
 
     private JSONArray getAllSodasArray () {

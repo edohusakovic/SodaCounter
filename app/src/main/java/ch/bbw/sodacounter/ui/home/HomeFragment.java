@@ -28,7 +28,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import ch.bbw.sodacounter.SettingsActivity;
 import ch.bbw.sodacounter.databinding.FragmentHomeBinding;
+import ch.bbw.sodacounter.models.Person;
 import ch.bbw.sodacounter.persistence.EntryController;
+import ch.bbw.sodacounter.persistence.PersonController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -102,6 +104,13 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+        PersonController personController = new PersonController(getActivity().getApplicationContext());
+        try {
+            Person person = personController.getPersonSettings();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return root;
     }
 

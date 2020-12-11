@@ -37,6 +37,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
+        <receiver
+            android:name=".persistence.NotificationReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <service
+            android:name=".persistence.NotificationIntentService"
+            android:exported="false" >
+        </service>
 
     </application>
 
